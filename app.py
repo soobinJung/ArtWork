@@ -6,11 +6,11 @@ def search_artworks(query):
     url = "https://collectionapi.metmuseum.org/public/collection/v1/search"
     params = {"q": query}
     response = requests.get(url, params=params)
-    # 결과 ID 중 상위 10개만 사용
+    data = response.json()  # ✅ JSON 응답 저장
+
     object_ids = data.get("objectIDs")
     if not object_ids:
-        return []  # None이거나 빈 리스트일 경우
-
+        return []
     return object_ids[:10]
 
 # 📄 작품 ID를 이용한 상세정보 요청 함수
