@@ -7,7 +7,11 @@ def search_artworks(query):
     params = {"q": query}
     response = requests.get(url, params=params)
     # 결과 ID 중 상위 10개만 사용
-    return response.json().get("objectIDs", [])[:10]
+    object_ids = data.get("objectIDs")
+    if not object_ids:
+        return []  # None이거나 빈 리스트일 경우
+
+    return object_ids[:10]
 
 # 📄 작품 ID를 이용한 상세정보 요청 함수
 def get_artwork_details(object_id):
